@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistemas Internos Simples em até 7 dias</title>
+  <meta name="description" content="Sistema interno simples para substituir planilhas e processos manuais. Entrega funcional em até 7 dias, com escopo fechado." />
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: #101826;
+      --panel2: #0f1623;
+      --text: #e7eef8;
+      --muted: #b9c6d8;
+      --muted2:#94a3b8;
+      --line: rgba(231,238,248,.12);
+      --brand: #6ee7ff;
+      --brand2:#a78bfa;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 22px;
+      --max: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(110,231,255,.18), transparent 60%),
+        radial-gradient(1100px 600px at 80% 0%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(900px 500px at 50% 110%, rgba(52,211,153,.10), transparent 60%),
+        var(--bg);
+      line-height:1.55;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,20,.85), rgba(11,15,20,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.2px;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:
+        radial-gradient(10px 10px at 30% 35%, rgba(255,255,255,.85), transparent 60%),
+        linear-gradient(135deg, rgba(110,231,255,.95), rgba(167,139,250,.95));
+      box-shadow: 0 8px 25px rgba(110,231,255,.10);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .nav-links{
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .nav-links a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    .nav-links a:hover{
+      border-color:rgba(231,238,248,.18);
+      background: rgba(231,238,248,.04);
+      color:var(--text);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,248,.16);
+      background: rgba(231,238,248,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:650;
+      box-shadow: none;
+      transition: transform .05s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(231,238,248,.10); border-color: rgba(231,238,248,.22); }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      border-color: rgba(110,231,255,.40);
+      background: linear-gradient(135deg, rgba(110,231,255,.20), rgba(167,139,250,.18));
+    }
+    .btn-primary:hover{
+      border-color: rgba(110,231,255,.55);
+      background: linear-gradient(135deg, rgba(110,231,255,.24), rgba(167,139,250,.22));
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid rgba(231,238,248,.14);
+      background: rgba(231,238,248,.04);
+    }
+
+    header.hero{
+      padding:58px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:26px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr; }
+      .nav-links{display:none;}
+    }
+
+    .hero-card{
+      background: linear-gradient(180deg, rgba(16,24,38,.88), rgba(15,22,35,.78));
+      border:1px solid rgba(231,238,248,.14);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding:28px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-40px -60px auto auto;
+      width:220px; height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(110,231,255,.22), transparent 60%),
+                  radial-gradient(circle at 60% 60%, rgba(167,139,250,.18), transparent 55%);
+      transform: rotate(12deg);
+      filter: blur(.2px);
+      pointer-events:none;
+    }
+
+    h1{
+      font-size: clamp(28px, 3.6vw, 44px);
+      line-height:1.12;
+      margin:10px 0 12px;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size: 16px;
+      max-width: 60ch;
+      margin: 0 0 18px;
+    }
+    .hero-actions{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;
+    }
+    .hero-meta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:18px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .hero-meta span{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,248,.12);
+      background: rgba(231,238,248,.03);
+    }
+
+    .side-card{
+      background: linear-gradient(180deg, rgba(16,24,38,.70), rgba(15,22,35,.55));
+      border:1px solid rgba(231,238,248,.12);
+      border-radius: var(--radius2);
+      padding:22px;
+    }
+    .side-title{
+      font-size:14px;
+      color:var(--muted);
+      margin:0 0 10px;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    .kpi .box{
+      border:1px solid rgba(231,238,248,.12);
+      background: rgba(231,238,248,.03);
+      border-radius:16px;
+      padding:14px;
+    }
+    .kpi .num{
+      font-size:22px;
+      font-weight:750;
+      letter-spacing:-.4px;
+      margin:0;
+    }
+    .kpi .lbl{
+      margin:4px 0 0;
+      font-size:12px;
+      color:var(--muted2);
+    }
+    .note{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(231,238,248,.18);
+      color:var(--muted);
+      background: rgba(231,238,248,.02);
+      font-size:13px;
+    }
+
+    section{padding:28px 0}
+    .section-head{
+      display:flex; align-items:end; justify-content:space-between;
+      gap:16px;
+      margin-bottom:14px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(20px, 2.4vw, 28px);
+      letter-spacing:-.3px;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      max-width: 70ch;
+      font-size: 15px;
+    }
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+    .grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
+    @media (max-width: 900px){
+      .grid-2, .grid-3{grid-template-columns:1fr;}
+    }
+
+    .card{
+      background: rgba(16,24,38,.55);
+      border:1px solid rgba(231,238,248,.12);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .bullets{
+      margin:12px 0 0;
+      padding:0; list-style:none;
+      color:var(--muted);
+      font-size:14px;
+      display:grid; gap:10px;
+    }
+    .bullets li{
+      display:flex; gap:10px; align-items:flex-start;
+      border:1px solid rgba(231,238,248,.10);
+      border-radius:14px;
+      background: rgba(231,238,248,.03);
+      padding:10px 12px;
+    }
+    .icon{
+      width:18px; height:18px; flex:0 0 18px;
+      margin-top:2px;
+      border-radius:6px;
+      background: linear-gradient(135deg, rgba(52,211,153,.25), rgba(110,231,255,.18));
+      border:1px solid rgba(231,238,248,.14);
+    }
+
+    .examples .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,248,.12);
+      background: rgba(231,238,248,.03);
+      color:var(--muted2);
+      margin-bottom:10px;
+    }
+    .examples .tag b{color:var(--text); font-weight:700}
+    .examples .mini{
+      margin-top:12px;
+      display:grid; gap:8px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .examples .mini strong{color:var(--text); font-weight:700}
+    .hr{
+      height:1px; background: var(--line);
+      margin:8px 0 0;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+    @media (max-width: 900px){ .steps{grid-template-columns:1fr;} }
+    .step{
+      border:1px solid rgba(231,238,248,.12);
+      border-radius:18px;
+      padding:14px;
+      background: rgba(231,238,248,.03);
+      position:relative;
+      overflow:hidden;
+    }
+    .step .n{
+      display:inline-flex;
+      width:30px; height:30px;
+      border-radius:12px;
+      align-items:center; justify-content:center;
+      font-weight:750;
+      border:1px solid rgba(231,238,248,.16);
+      background: linear-gradient(135deg, rgba(110,231,255,.18), rgba(167,139,250,.14));
+      margin-bottom:10px;
+    }
+    .step p{margin:0; color:var(--muted); font-size:14px;}
+    .limits{
+      border:1px solid rgba(251,191,36,.22);
+      background: rgba(251,191,36,.05);
+    }
+    .limits h3{display:flex; align-items:center; gap:10px;}
+    .badge-warn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:22px; height:22px;
+      border-radius:8px;
+      border:1px solid rgba(251,191,36,.30);
+      background: rgba(251,191,36,.12);
+      color: var(--warn);
+      font-weight:800;
+      font-size:12px;
+      flex:0 0 22px;
+    }
+
+    .split{
+      display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+      margin-top:14px;
+    }
+    @media (max-width: 900px){ .split{grid-template-columns:1fr;} }
+
+    .callout{
+      background: linear-gradient(135deg, rgba(110,231,255,.14), rgba(167,139,250,.12));
+      border:1px solid rgba(231,238,248,.16);
+      border-radius: var(--radius2);
+      padding:22px;
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .callout h2{margin:0; font-size:22px;}
+    .callout p{margin:6px 0 0; color:var(--muted); max-width: 70ch;}
+    .callout .actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+    footer{
+      padding:26px 0 40px;
+      border-top:1px solid var(--line);
+      margin-top:22px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    footer .foot{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+    }
+    .small{font-size:12px; color:var(--muted2); margin-top:6px;}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center; justify-content:center;
+      padding:22px;
+      z-index:100;
+    }
+    .modal{
+      width:min(720px, 100%);
+      background: linear-gradient(180deg, rgba(16,24,38,.95), rgba(15,22,35,.92));
+      border:1px solid rgba(231,238,248,.16);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal header{
+      padding:16px 18px;
+      border-bottom:1px solid rgba(231,238,248,.12);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    .modal header h3{margin:0; font-size:15px;}
+    .close{
+      width:36px; height:36px;
+      border-radius:12px;
+      border:1px solid rgba(231,238,248,.14);
+      background: rgba(231,238,248,.04);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .close:hover{background: rgba(231,238,248,.08);}
+    .modal .body{padding:18px;}
+    form{display:grid; gap:12px;}
+    .row{display:grid; gap:10px;}
+    label{font-size:13px; color:var(--muted); display:block; margin-bottom:6px;}
+    input[type="text"], input[type="email"], textarea, select{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(231,238,248,.14);
+      background: rgba(231,238,248,.03);
+      color:var(--text);
+      padding:11px 12px;
+      font-family:var(--font);
+      font-size:14px;
+      outline:none;
+    }
+    textarea{min-height:88px; resize:vertical;}
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(110,231,255,.45);
+      box-shadow: 0 0 0 4px rgba(110,231,255,.08);
+    }
+    .hint{font-size:12px; color:var(--muted2); margin-top:6px;}
+    .checks{
+      display:grid; gap:8px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,248,.12);
+      background: rgba(231,238,248,.02);
+    }
+    .checks label{
+      display:flex; gap:10px; align-items:flex-start;
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      cursor:pointer;
+    }
+    .checks input{margin-top:2px}
+    .form-actions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-top:4px;
+    }
+    .status{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:8px;
+      display:none;
+    }
+    .status.ok{color:var(--ok)}
+    .status.bad{color:var(--bad)}
+    .required{color:var(--bad); font-weight:700;}
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Sistemas Internos Simples</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegação">
+          <a href="#dores">Problemas</a>
+          <a href="#exemplos">Exemplos</a>
+          <a href="#como">Como funciona</a>
+          <a href="#limites">Limites</a>
+          <a href="#paraquem">Para quem é</a>
+        </nav>
+
+        <button class="btn btn-primary" type="button" data-open-modal>
+          Descrever meu problema
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <span class="pill">Entrega funcional • até 7 dias • escopo fechado</span>
+            <h1>Sistema interno simples para substituir planilhas e processos manuais</h1>
+            <p class="sub">
+              Para MEIs e pequenas empresas que precisam de controle claro do dia a dia —
+              sem projetos longos, sem escopo aberto e sem “vamos ajustando depois”.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-open-modal>Descrever meu problema</button>
+              <a class="btn" href="#exemplos">Ver exemplos</a>
+            </div>
+
+            <div class="hero-meta" aria-label="Destaques">
+              <span>1 problema por projeto</span>
+              <span>Até 5 telas/páginas</span>
+              <span>Comunicação objetiva</span>
+            </div>
+          </div>
+
+          <aside class="side-card">
+            <p class="side-title">O que você ganha</p>
+            <div class="kpi" role="list">
+              <div class="box" role="listitem">
+                <p class="num">7 dias</p>
+                <p class="lbl">prazo máximo para entrega funcional</p>
+              </div>
+              <div class="box" role="listitem">
+                <p class="num">Escopo fechado</p>
+                <p class="lbl">sem surpresas no meio do caminho</p>
+              </div>
+              <div class="box" role="listitem">
+                <p class="num">Controle</p>
+                <p class="lbl">status, responsáveis e prazos visíveis</p>
+              </div>
+              <div class="box" role="listitem">
+                <p class="num">Simplicidade</p>
+                <p class="lbl">sistema interno, direto ao ponto</p>
+              </div>
+            </div>
+            <div class="note">
+              <strong>Importante:</strong> este serviço é focado em resolver um problema operacional específico.
+              Se você precisa de um sistema grande ou indefinido, provavelmente não é o encaixe certo.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <section id="dores">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Se isso acontece hoje, dá para organizar</h2>
+            <p class="lead">Você não precisa de um sistema grande — precisa de um processo claro e centralizado.</p>
+          </div>
+        </div>
+
+        <ul class="bullets" aria-label="Dores comuns">
+          <li><span class="icon" aria-hidden="true"></span>Pedidos chegam por WhatsApp, e-mail ou planilha e se perdem no caminho.</li>
+          <li><span class="icon" aria-hidden="true"></span>Ninguém sabe exatamente o que está em andamento, atrasado ou concluído.</li>
+          <li><span class="icon" aria-hidden="true"></span>Decisões são tomadas, mas não ficam registradas (e depois vira discussão).</li>
+          <li><span class="icon" aria-hidden="true"></span>Planilhas quebram, dão erro ou só uma pessoa sabe usar.</li>
+          <li><span class="icon" aria-hidden="true"></span>O retrabalho aparece quando já virou problema — e o custo chega tarde.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="oferta">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>O que eu faço (sem prometer o impossível)</h2>
+            <p class="lead">
+              Eu desenvolvo sistemas internos simples para resolver <strong>um problema operacional específico</strong>.
+              Nada de projeto infinito. Nada de escopo aberto.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>O que você recebe</h3>
+            <p>Um sistema interno funcional, com o essencial para tirar o processo do “manual” e colocar em ordem.</p>
+            <div class="hr"></div>
+            <ul class="bullets" aria-label="Entregas comuns" style="margin-top:12px">
+              <li><span class="icon" aria-hidden="true"></span>Um fluxo principal claro (registro → acompanhamento → conclusão).</li>
+              <li><span class="icon" aria-hidden="true"></span>Controle de status, responsável e prazos (quando aplicável).</li>
+              <li><span class="icon" aria-hidden="true"></span>Validações simples para reduzir erros e retrabalho.</li>
+              <li><span class="icon" aria-hidden="true"></span>Entrega funcional em ambiente acordado + instruções de uso.</li>
+            </ul>
+          </div>
+
+          <div class="card limits" id="limites">
+            <h3><span class="badge-warn">!</span>Limites do serviço (isso protege o prazo)</h3>
+            <p>Este serviço não é para todo tipo de projeto — e isso é intencional.</p>
+            <div class="hr"></div>
+            <ul class="bullets" aria-label="O que não está incluso" style="margin-top:12px">
+              <li><span class="icon" aria-hidden="true"></span>Sistemas grandes ou complexos, com muitos módulos.</li>
+              <li><span class="icon" aria-hidden="true"></span>Vários problemas no mesmo projeto (misturar fluxos).</li>
+              <li><span class="icon" aria-hidden="true"></span>Integrações externas não previstas (WhatsApp, ERP, etc.).</li>
+              <li><span class="icon" aria-hidden="true"></span>Relatórios analíticos avançados e automações extensas.</li>
+              <li><span class="icon" aria-hidden="true"></span>Manutenção contínua / suporte recorrente após a entrega.</li>
+            </ul>
+            <p class="hint" style="margin-top:10px">
+              Funcionalidades fora do escopo definido são tratadas como <strong>novo projeto</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="exemplos" class="examples">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Exemplos de problemas resolvidos</h2>
+            <p class="lead">
+              Estes exemplos ajudam você a identificar se o seu caso se encaixa. Cada projeto resolve <strong>um problema principal</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="tag"><b>Exemplo 1</b> • Controle de Demandas Internas</div>
+            <div class="mini">
+              <div><strong>Quando usar:</strong> pedidos chegam por vários canais e falta controle do que está em andamento.</div>
+              <div><strong>O sistema resolve:</strong> registro central, responsável, status claro, prazos e observações.</div>
+              <div><strong>Resultado:</strong> menos cobrança, menos retrabalho e visão do dia a dia.</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="tag"><b>Exemplo 2</b> • Fluxo de Aprovação Simples</div>
+            <div class="mini">
+              <div><strong>Quando usar:</strong> solicitações precisam de aprovação, mas decisões se perdem em conversas.</div>
+              <div><strong>O sistema resolve:</strong> registro da solicitação, aprovar/reprovar, histórico da decisão.</div>
+              <div><strong>Resultado:</strong> clareza sobre quem aprovou o quê, quando e por quê.</div>
+            </div>
+            <p class="hint" style="margin-top:10px">
+              Regra: 1 aprovador principal, sem cadeia e sem regras condicionais complexas.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag"><b>Exemplo 3</b> • Substituição de Planilha Crítica</div>
+            <div class="mini">
+              <div><strong>Quando usar:</strong> uma planilha é essencial e representa risco (erro, quebra, dependência).</div>
+              <div><strong>O sistema resolve:</strong> entrada com validação, histórico confiável e menos erro manual.</div>
+              <div><strong>Resultado:</strong> previsibilidade e segurança em um processo sensível.</div>
+            </div>
+            <p class="hint" style="margin-top:10px">
+              Regra: replica a lógica existente (não redesenha o processo neste serviço).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Como funciona (simples e direto)</h2>
+            <p class="lead">O objetivo é reduzir risco, alinhar expectativas e entregar no prazo — sem conversa infinita.</p>
+          </div>
+        </div>
+
+        <div class="steps" aria-label="Passos do processo">
+          <div class="step">
+            <div class="n">1</div>
+            <p><strong>Você descreve o problema</strong> usando um formulário rápido e objetivo.</p>
+          </div>
+          <div class="step">
+            <div class="n">2</div>
+            <p><strong>Eu verifico o encaixe</strong> com este modelo de entrega em 7 dias.</p>
+          </div>
+          <div class="step">
+            <div class="n">3</div>
+            <p><strong>Fechamos escopo, prazo e valor</strong> no início (sem escopo aberto).</p>
+          </div>
+          <div class="step">
+            <div class="n">4</div>
+            <p><strong>Eu entrego o sistema funcional</strong> em até 7 dias, conforme combinado.</p>
+          </div>
+        </div>
+
+        <p class="hint" style="margin-top:12px">
+          Sessão online é <strong>opcional</strong> e usada apenas quando houver ambiguidade real — para fechar o escopo, não para brainstorm.
+        </p>
+      </div>
+    </section>
+
+    <section id="paraquem">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Para quem é (e para quem não é)</h2>
+            <p class="lead">Este filtro evita perda de tempo e protege o prazo de entrega.</p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <h3>Este serviço é para</h3>
+            <ul class="bullets" aria-label="Para quem é" style="margin-top:12px">
+              <li><span class="icon" aria-hidden="true"></span>MEIs e pequenas empresas com dor operacional clara.</li>
+              <li><span class="icon" aria-hidden="true"></span>Processos internos hoje controlados por planilha/WhatsApp/e-mail.</li>
+              <li><span class="icon" aria-hidden="true"></span>Quem quer uma solução rápida, objetiva e previsível.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Este serviço não é para</h3>
+            <ul class="bullets" aria-label="Para quem não é" style="margin-top:12px">
+              <li><span class="icon" aria-hidden="true"></span>Projetos grandes, indefinidos ou com muitas frentes ao mesmo tempo.</li>
+              <li><span class="icon" aria-hidden="true"></span>Quem precisa “pensar o negócio” antes de saber o que quer.</li>
+              <li><span class="icon" aria-hidden="true"></span>Quem não aceita escopo fechado e mudanças virarem novo projeto.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Chamada final">
+      <div class="container">
+        <div class="callout">
+          <div>
+            <h2>Quer saber se o seu caso se encaixa?</h2>
+            <p>
+              Descreva o problema. Eu analiso e respondo se faz sentido seguir com este modelo de entrega em 7 dias.
+              Se não encaixar, eu aviso antes de qualquer contratação.
+            </p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="button" data-open-modal>Ver se meu problema se encaixa</button>
+            <a class="btn" href="#dores">Rever problemas comuns</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="logo" aria-hidden="true"></span>
+              <strong>Sistemas Internos Simples</strong>
+            </div>
+            <div class="small">Soluções internas objetivas para operações reais.</div>
+          </div>
+          <div>
+            <div><strong>Contato</strong></div>
+            <div class="small">E-mail: <span id="contactEmail">seuemail@exemplo.com</span></div>
+            <div class="small">WhatsApp: <span id="contactPhone">(00) 00000-0000</span></div>
+          </div>
+        </div>
+        <div class="small" style="margin-top:14px; opacity:.85;">
+          © <span id="year"></span> • Todos os direitos reservados.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal: Formulário de Qualificação -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <header>
+        <h3 id="modalTitle">Qualificação rápida — descreva seu problema</h3>
+        <button class="close" type="button" aria-label="Fechar" data-close-modal>✕</button>
+      </header>
+      <div class="body">
+        <form id="qualForm">
+          <div class="row">
+            <label for="name">Seu nome <span class="required">*</span></label>
+            <input id="name" name="name" type="text" required placeholder="Ex.: Maria Silva" />
+          </div>
+
+          <div class="grid-2">
+            <div class="row">
+              <label for="email">E-mail <span class="required">*</span></label>
+              <input id="email" name="email" type="email" required placeholder="voce@empresa.com" />
+            </div>
+            <div class="row">
+              <label for="company">Empresa / negócio</label>
+              <input id="company" name="company" type="text" placeholder="Ex.: Loja do João (MEI)" />
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="problem">Qual processo você quer transformar em sistema? <span class="required">*</span></label>
+            <textarea id="problem" name="problem" required placeholder="Descreva em poucas linhas o que acontece hoje e o que precisa melhorar."></textarea>
+            <div class="hint">Ex.: “Pedidos chegam por WhatsApp e eu perco prazos. Quero ver status, responsável e datas.”</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="row">
+              <label for="today">Como isso é feito hoje?</label>
+              <select id="today" name="today">
+                <option value="planilha">Planilha</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="email">E-mail</option>
+                <option value="papel">Papel</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="people">Quantas pessoas usam esse processo?</label>
+              <select id="people" name="people">
+                <option value="1">Uma pessoa</option>
+                <option value="pequeno_grupo">Pequeno grupo</option>
+                <option value="muitas">Muitas pessoas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="variation">Qual exemplo mais se parece com seu caso?</label>
+            <select id="variation" name="variation">
+              <option value="demandas">Controle de Demandas Internas</option>
+              <option value="aprovacao">Fluxo de Aprovação Simples</option>
+              <option value="planilha">Substituição de Planilha Crítica</option>
+              <option value="nao_sei">Não sei / preciso de ajuda</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Confirmações (obrigatórias)</label>
+            <div class="checks">
+              <label>
+                <input type="checkbox" name="c_scope" required />
+                Eu entendo que o escopo será definido no início e não sofrerá alterações durante o prazo combinado.
+              </label>
+              <label>
+                <input type="checkbox" name="c_newproj" required />
+                Eu entendo que novas necessidades fora do escopo serão tratadas como novo projeto.
+              </label>
+              <label>
+                <input type="checkbox" name="c_internal" required />
+                O sistema é para uso interno e para resolver um problema operacional específico.
+              </label>
+            </div>
+            <div class="hint">Se você não concorda com isso, este serviço provavelmente não é o encaixe certo.</div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+            <button class="btn" type="button" data-close-modal>Cancelar</button>
+          </div>
+
+          <div class="status" id="formStatus"></div>
+
+          <div class="hint" style="margin-top:10px;">
+            <strong>Nota:</strong> este formulário não envia automaticamente para um servidor. Ele copia um resumo para você colar e enviar por e-mail/WhatsApp
+            ou integrar depois com seu backend.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Helpers
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    // Year
+    $("#year").textContent = new Date().getFullYear();
+
+    // Modal open/close
+    const backdrop = $("#modalBackdrop");
+    const openBtns = $$("[data-open-modal]");
+    const closeBtns = $$("[data-close-modal]");
+
+    function openModal(){
+      backdrop.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      setTimeout(() => { $("#name").focus(); }, 50);
+    }
+    function closeModal(){
+      backdrop.style.display = "none";
+      document.body.style.overflow = "";
+      const status = $("#formStatus");
+      status.style.display = "none";
+      status.textContent = "";
+      status.className = "status";
+    }
+
+    openBtns.forEach(b => b.addEventListener("click", openModal));
+    closeBtns.forEach(b => b.addEventListener("click", closeModal));
+    backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape" && backdrop.style.display === "flex") closeModal(); });
+
+    // Smooth scroll for anchor links
+    $$('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        if(!id || id === "#") return;
+        const target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:"smooth", block:"start"});
+        }
+      });
+    });
+
+    // Qualification form handling (no server)
+    const form = $("#qualForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+
+      // Build a compact summary message (WhatsApp/email friendly)
+      const msg =
+`QUALIFICAÇÃO — SISTEMA INTERNO (7 DIAS)
+Nome: ${fd.get("name")}
+E-mail: ${fd.get("email")}
+Empresa/Negócio: ${fd.get("company") || "-"}
+Como faz hoje: ${fd.get("today")}
+Pessoas no processo: ${fd.get("people")}
+Exemplo mais parecido: ${fd.get("variation")}
+
+Processo / Problema:
+${fd.get("problem")}
+
+Confirmações:
+- Escopo fechado: OK
+- Mudanças viram novo projeto: OK
+- Uso interno / 1 problema: OK
+`;
+
+      try{
+        await navigator.clipboard.writeText(msg);
+        const status = $("#formStatus");
+        status.style.display = "block";
+        status.classList.add("ok");
+        status.textContent = "Enviado! (Resumo copiado para a área de transferência. Cole no WhatsApp ou e-mail.)";
+        form.reset();
+        setTimeout(closeModal, 1400);
+      }catch(err){
+        const status = $("#formStatus");
+        status.style.display = "block";
+        status.classList.add("bad");
+        status.textContent = "Não consegui copiar automaticamente. Selecione e copie manualmente o texto abaixo:";
+        // Insert a textarea fallback
+        const ta = document.createElement("textarea");
+        ta.value = msg;
+        ta.style.width = "100%";
+        ta.style.marginTop = "10px";
+        ta.style.minHeight = "160px";
+        ta.style.borderRadius = "14px";
+        ta.style.border = "1px solid rgba(231,238,248,.14)";
+        ta.style.background = "rgba(231,238,248,.03)";
+        ta.style.color = "#e7eef8";
+        ta.style.padding = "11px 12px";
+        ta.style.fontFamily = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
+        ta.readOnly = true;
+
+        // Remove old fallback if present
+        const old = $("#fallbackMsg");
+        if(old) old.remove();
+        ta.id = "fallbackMsg";
+
+        form.appendChild(ta);
+        ta.focus();
+        ta.select();
+      }
+    });
+  </script>
+</body>
+</html>
