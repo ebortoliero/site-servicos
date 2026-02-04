@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sistemas Internos Simples em até 7 dias</title>
+  <title>Sistema interno em até 7 dias | Ebortoliero</title>
   <meta name="description" content="Sistema interno simples para substituir planilhas e processos manuais. Entrega funcional em até 7 dias, com escopo fechado." />
   <style>
     :root{
@@ -94,7 +94,6 @@
       color:var(--text);
       text-decoration:none;
       font-weight:650;
-      box-shadow: none;
       transition: transform .05s ease, background .2s ease, border-color .2s ease;
       cursor:pointer;
     }
@@ -118,9 +117,7 @@
       background: rgba(231,238,248,.04);
     }
 
-    header.hero{
-      padding:58px 0 26px;
-    }
+    header.hero{ padding:58px 0 26px; }
     .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -128,7 +125,7 @@
       align-items:start;
     }
     @media (max-width: 900px){
-      .hero-grid{grid-template-columns:1fr; }
+      .hero-grid{grid-template-columns:1fr;}
       .nav-links{display:none;}
     }
 
@@ -148,7 +145,6 @@
       background: radial-gradient(circle at 30% 30%, rgba(110,231,255,.22), transparent 60%),
                   radial-gradient(circle at 60% 60%, rgba(167,139,250,.18), transparent 55%);
       transform: rotate(12deg);
-      filter: blur(.2px);
       pointer-events:none;
     }
 
@@ -160,13 +156,11 @@
     }
     .sub{
       color:var(--muted);
-      font-size: 16px;
-      max-width: 60ch;
-      margin: 0 0 18px;
+      font-size:16px;
+      max-width:60ch;
+      margin:0 0 18px;
     }
-    .hero-actions{
-      display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;
-    }
+    .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
     .hero-meta{
       display:flex; gap:10px; flex-wrap:wrap;
       margin-top:18px;
@@ -240,8 +234,8 @@
     .lead{
       margin:0;
       color:var(--muted);
-      max-width: 70ch;
-      font-size: 15px;
+      max-width:70ch;
+      font-size:15px;
     }
 
     .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
@@ -267,6 +261,7 @@
       color:var(--muted);
       font-size:14px;
     }
+
     .bullets{
       margin:12px 0 0;
       padding:0; list-style:none;
@@ -307,10 +302,7 @@
       font-size:14px;
     }
     .examples .mini strong{color:var(--text); font-weight:700}
-    .hr{
-      height:1px; background: var(--line);
-      margin:8px 0 0;
-    }
+    .hr{ height:1px; background: var(--line); margin:8px 0 0; }
 
     .steps{
       display:grid;
@@ -324,8 +316,6 @@
       border-radius:18px;
       padding:14px;
       background: rgba(231,238,248,.03);
-      position:relative;
-      overflow:hidden;
     }
     .step .n{
       display:inline-flex;
@@ -338,6 +328,7 @@
       margin-bottom:10px;
     }
     .step p{margin:0; color:var(--muted); font-size:14px;}
+
     .limits{
       border:1px solid rgba(251,191,36,.22);
       background: rgba(251,191,36,.05);
@@ -372,7 +363,7 @@
       flex-wrap:wrap;
     }
     .callout h2{margin:0; font-size:22px;}
-    .callout p{margin:6px 0 0; color:var(--muted); max-width: 70ch;}
+    .callout p{margin:6px 0 0; color:var(--muted); max-width:70ch;}
     .callout .actions{display:flex; gap:10px; flex-wrap:wrap;}
 
     footer{
@@ -422,10 +413,11 @@
     }
     .close:hover{background: rgba(231,238,248,.08);}
     .modal .body{padding:18px;}
+
     form{display:grid; gap:12px;}
     .row{display:grid; gap:10px;}
     label{font-size:13px; color:var(--muted); display:block; margin-bottom:6px;}
-    input[type="text"], input[type="email"], textarea, select{
+    input[type="text"], textarea{
       width:100%;
       border-radius:14px;
       border:1px solid rgba(231,238,248,.14);
@@ -436,27 +428,12 @@
       font-size:14px;
       outline:none;
     }
-    textarea{min-height:88px; resize:vertical;}
-    input:focus, textarea:focus, select:focus{
+    textarea{min-height:110px; resize:vertical;}
+    input:focus, textarea:focus{
       border-color: rgba(110,231,255,.45);
       box-shadow: 0 0 0 4px rgba(110,231,255,.08);
     }
     .hint{font-size:12px; color:var(--muted2); margin-top:6px;}
-    .checks{
-      display:grid; gap:8px;
-      padding:12px;
-      border-radius:16px;
-      border:1px solid rgba(231,238,248,.12);
-      background: rgba(231,238,248,.02);
-    }
-    .checks label{
-      display:flex; gap:10px; align-items:flex-start;
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      cursor:pointer;
-    }
-    .checks input{margin-top:2px}
     .form-actions{
       display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       margin-top:4px;
@@ -470,6 +447,26 @@
     .status.ok{color:var(--ok)}
     .status.bad{color:var(--bad)}
     .required{color:var(--bad); font-weight:700;}
+    .confirm{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,248,.12);
+      background: rgba(231,238,248,.03);
+      color:var(--muted);
+      display:none;
+    }
+    .confirm strong{color:var(--text)}
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(231,238,248,.10);
+      padding:10px 12px;
+      border-radius:14px;
+      white-space:pre-wrap;
+      color:var(--text);
+    }
   </style>
 </head>
 
@@ -673,24 +670,24 @@
         <div class="steps" aria-label="Passos do processo">
           <div class="step">
             <div class="n">1</div>
-            <p><strong>Você descreve o problema</strong> usando um formulário rápido e objetivo.</p>
+            <p><strong>Você descreve o problema</strong> de forma objetiva.</p>
           </div>
           <div class="step">
             <div class="n">2</div>
-            <p><strong>Eu verifico o encaixe</strong> com este modelo de entrega em 7 dias.</p>
+            <p><strong>Eu avalio o encaixe</strong> neste modelo de entrega em até 7 dias.</p>
           </div>
           <div class="step">
             <div class="n">3</div>
-            <p><strong>Fechamos escopo, prazo e valor</strong> no início (sem escopo aberto).</p>
+            <p><strong>Confirmamos detalhes rápidos</strong> por WhatsApp (conversa dirigida).</p>
           </div>
           <div class="step">
             <div class="n">4</div>
-            <p><strong>Eu entrego o sistema funcional</strong> em até 7 dias, conforme combinado.</p>
+            <p><strong>Você recebe uma proposta</strong> com escopo, prazo e valor fechados.</p>
           </div>
         </div>
 
         <p class="hint" style="margin-top:12px">
-          Sessão online é <strong>opcional</strong> e usada apenas quando houver ambiguidade real — para fechar o escopo, não para brainstorm.
+          A conversa por WhatsApp é objetiva e usada apenas para validar o encaixe e fechar o escopo — não para brainstorm.
         </p>
       </div>
     </section>
@@ -732,8 +729,8 @@
           <div>
             <h2>Quer saber se o seu caso se encaixa?</h2>
             <p>
-              Descreva o problema. Eu analiso e respondo se faz sentido seguir com este modelo de entrega em 7 dias.
-              Se não encaixar, eu aviso antes de qualquer contratação.
+              Descreva o problema. Eu analiso e, se fizer sentido dentro do modelo de entrega em até 7 dias,
+              entro em contato pelo WhatsApp.
             </p>
           </div>
           <div class="actions">
@@ -767,97 +764,48 @@
     </footer>
   </main>
 
-  <!-- Modal: Formulário de Qualificação -->
+  <!-- Modal: Captura mínima -->
   <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <header>
-        <h3 id="modalTitle">Qualificação rápida — descreva seu problema</h3>
+        <h3 id="modalTitle">Descreva o problema que você quer resolver</h3>
         <button class="close" type="button" aria-label="Fechar" data-close-modal>✕</button>
       </header>
+
       <div class="body">
-        <form id="qualForm">
+        <form id="leadForm">
           <div class="row">
-            <label for="name">Seu nome <span class="required">*</span></label>
-            <input id="name" name="name" type="text" required placeholder="Ex.: Maria Silva" />
-          </div>
-
-          <div class="grid-2">
-            <div class="row">
-              <label for="email">E-mail <span class="required">*</span></label>
-              <input id="email" name="email" type="email" required placeholder="voce@empresa.com" />
-            </div>
-            <div class="row">
-              <label for="company">Empresa / negócio</label>
-              <input id="company" name="company" type="text" placeholder="Ex.: Loja do João (MEI)" />
-            </div>
+            <label for="problem">Descreva em poucas linhas o problema que você enfrenta hoje <span class="required">*</span></label>
+            <textarea id="problem" name="problem" required placeholder="Ex.: pedidos chegam por WhatsApp e eu perco o controle de prazos e responsáveis."></textarea>
           </div>
 
           <div class="row">
-            <label for="problem">Qual processo você quer transformar em sistema? <span class="required">*</span></label>
-            <textarea id="problem" name="problem" required placeholder="Descreva em poucas linhas o que acontece hoje e o que precisa melhorar."></textarea>
-            <div class="hint">Ex.: “Pedidos chegam por WhatsApp e eu perco prazos. Quero ver status, responsável e datas.”</div>
-          </div>
-
-          <div class="grid-2">
-            <div class="row">
-              <label for="today">Como isso é feito hoje?</label>
-              <select id="today" name="today">
-                <option value="planilha">Planilha</option>
-                <option value="whatsapp">WhatsApp</option>
-                <option value="email">E-mail</option>
-                <option value="papel">Papel</option>
-                <option value="outro">Outro</option>
-              </select>
+            <label for="whatsapp">WhatsApp para contato <span class="required">*</span></label>
+            <input id="whatsapp" name="whatsapp" type="text" required placeholder="(DDD) 9xxxx-xxxx" />
+            <div class="hint">
+              Vou analisar a descrição e, se o caso se encaixar neste modelo de solução com entrega em até 7 dias, entro em contato pelo WhatsApp.
             </div>
-            <div class="row">
-              <label for="people">Quantas pessoas usam esse processo?</label>
-              <select id="people" name="people">
-                <option value="1">Uma pessoa</option>
-                <option value="pequeno_grupo">Pequeno grupo</option>
-                <option value="muitas">Muitas pessoas</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <label for="variation">Qual exemplo mais se parece com seu caso?</label>
-            <select id="variation" name="variation">
-              <option value="demandas">Controle de Demandas Internas</option>
-              <option value="aprovacao">Fluxo de Aprovação Simples</option>
-              <option value="planilha">Substituição de Planilha Crítica</option>
-              <option value="nao_sei">Não sei / preciso de ajuda</option>
-            </select>
-          </div>
-
-          <div class="row">
-            <label>Confirmações (obrigatórias)</label>
-            <div class="checks">
-              <label>
-                <input type="checkbox" name="c_scope" required />
-                Eu entendo que o escopo será definido no início e não sofrerá alterações durante o prazo combinado.
-              </label>
-              <label>
-                <input type="checkbox" name="c_newproj" required />
-                Eu entendo que novas necessidades fora do escopo serão tratadas como novo projeto.
-              </label>
-              <label>
-                <input type="checkbox" name="c_internal" required />
-                O sistema é para uso interno e para resolver um problema operacional específico.
-              </label>
-            </div>
-            <div class="hint">Se você não concorda com isso, este serviço provavelmente não é o encaixe certo.</div>
           </div>
 
           <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Enviar</button>
+            <button class="btn btn-primary" type="submit">Enviar para avaliação</button>
             <button class="btn" type="button" data-close-modal>Cancelar</button>
           </div>
 
           <div class="status" id="formStatus"></div>
 
+          <div class="confirm" id="confirmBox">
+            <strong>Obrigado!</strong><br><br>
+            Vou analisar a descrição do problema com calma.<br><br>
+            Se eu entender que consigo entregar dentro do modelo de solução em até 7 dias, entro em contato pelo WhatsApp informado.<br><br>
+            Caso não se encaixe, aviso também.
+            <div class="hint" style="margin-top:10px">
+              (Um resumo foi copiado para a área de transferência para facilitar seu primeiro contato.)
+            </div>
+          </div>
+
           <div class="hint" style="margin-top:10px;">
-            <strong>Nota:</strong> este formulário não envia automaticamente para um servidor. Ele copia um resumo para você colar e enviar por e-mail/WhatsApp
-            ou integrar depois com seu backend.
+            <strong>Nota:</strong> este site não envia automaticamente para um servidor. O envio copia um resumo para você registrar e iniciar o contato.
           </div>
         </form>
       </div>
@@ -865,11 +813,9 @@
   </div>
 
   <script>
-    // Helpers
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
 
-    // Year
     $("#year").textContent = new Date().getFullYear();
 
     // Modal open/close
@@ -880,15 +826,17 @@
     function openModal(){
       backdrop.style.display = "flex";
       document.body.style.overflow = "hidden";
-      setTimeout(() => { $("#name").focus(); }, 50);
+      // reset UI state
+      $("#formStatus").style.display = "none";
+      $("#formStatus").textContent = "";
+      $("#formStatus").className = "status";
+      $("#confirmBox").style.display = "none";
+      $("#leadForm").style.display = "grid";
+      setTimeout(() => { $("#problem").focus(); }, 50);
     }
     function closeModal(){
       backdrop.style.display = "none";
       document.body.style.overflow = "";
-      const status = $("#formStatus");
-      status.style.display = "none";
-      status.textContent = "";
-      status.className = "status";
     }
 
     openBtns.forEach(b => b.addEventListener("click", openModal));
@@ -896,7 +844,7 @@
     backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
     document.addEventListener("keydown", (e) => { if(e.key === "Escape" && backdrop.style.display === "flex") closeModal(); });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll
     $$('a[href^="#"]').forEach(a => {
       a.addEventListener("click", (e) => {
         const id = a.getAttribute("href");
@@ -909,66 +857,91 @@
       });
     });
 
-    // Qualification form handling (no server)
-    const form = $("#qualForm");
+    // Helpers
+    function normalizeWhitespace(s){
+      return (s || "").replace(/\s+/g, " ").trim();
+    }
+    function shortSummary(text, maxLen=180){
+      const t = normalizeWhitespace(text);
+      if(t.length <= maxLen) return t;
+      return t.slice(0, maxLen-1).trim() + "…";
+    }
+    function nowStamp(){
+      const d = new Date();
+      const pad = n => String(n).padStart(2,"0");
+      return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    // Lead form (no server): copy to clipboard
+    const form = $("#leadForm");
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const fd = new FormData(form);
 
-      // Build a compact summary message (WhatsApp/email friendly)
+      const problem = $("#problem").value.trim();
+      const whatsapp = $("#whatsapp").value.trim();
+
+      // WhatsApp-directed opening message (for YOU to paste when contacting)
+      const resumo = shortSummary(problem, 220);
+
       const msg =
-`QUALIFICAÇÃO — SISTEMA INTERNO (7 DIAS)
-Nome: ${fd.get("name")}
-E-mail: ${fd.get("email")}
-Empresa/Negócio: ${fd.get("company") || "-"}
-Como faz hoje: ${fd.get("today")}
-Pessoas no processo: ${fd.get("people")}
-Exemplo mais parecido: ${fd.get("variation")}
+`LEAD — SITE (CAPTURA MÍNIMA)
+Data/hora: ${nowStamp()}
+WhatsApp informado: ${whatsapp}
 
-Processo / Problema:
-${fd.get("problem")}
+Problema descrito:
+${problem}
 
-Confirmações:
-- Escopo fechado: OK
-- Mudanças viram novo projeto: OK
-- Uso interno / 1 problema: OK
+MENSAGEM INICIAL (WhatsApp dirigido):
+Olá! Tudo bem?
+
+Vi que você descreveu este problema no site:
+“${resumo}”
+
+Antes de avançar, preciso confirmar alguns pontos rápidos para verificar se consigo entregar uma solução dentro do modelo de entrega em até 7 dias.
+Essa conversa é apenas para validar o encaixe, tudo bem?
 `;
+
+      const status = $("#formStatus");
+      const confirm = $("#confirmBox");
 
       try{
         await navigator.clipboard.writeText(msg);
-        const status = $("#formStatus");
+
         status.style.display = "block";
         status.classList.add("ok");
-        status.textContent = "Enviado! (Resumo copiado para a área de transferência. Cole no WhatsApp ou e-mail.)";
+        status.textContent = "Enviado! (Resumo copiado para a área de transferência.)";
+
+        // Show confirmation message
+        confirm.style.display = "block";
+
+        // Optional: clear fields
         form.reset();
-        setTimeout(closeModal, 1400);
+
+        // Auto-close after a bit
+        setTimeout(closeModal, 2200);
       }catch(err){
-        const status = $("#formStatus");
         status.style.display = "block";
         status.classList.add("bad");
         status.textContent = "Não consegui copiar automaticamente. Selecione e copie manualmente o texto abaixo:";
-        // Insert a textarea fallback
-        const ta = document.createElement("textarea");
-        ta.value = msg;
-        ta.style.width = "100%";
-        ta.style.marginTop = "10px";
-        ta.style.minHeight = "160px";
-        ta.style.borderRadius = "14px";
-        ta.style.border = "1px solid rgba(231,238,248,.14)";
-        ta.style.background = "rgba(231,238,248,.03)";
-        ta.style.color = "#e7eef8";
-        ta.style.padding = "11px 12px";
-        ta.style.fontFamily = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
-        ta.readOnly = true;
 
-        // Remove old fallback if present
-        const old = $("#fallbackMsg");
-        if(old) old.remove();
+        // Fallback textarea
+        let ta = $("#fallbackMsg");
+        if(ta) ta.remove();
+
+        ta = document.createElement("textarea");
         ta.id = "fallbackMsg";
+        ta.className = "mono";
+        ta.value = msg;
+        ta.readOnly = true;
+        ta.style.width = "100%";
+        ta.style.minHeight = "180px";
+        ta.style.marginTop = "10px";
 
         form.appendChild(ta);
         ta.focus();
         ta.select();
+
+        confirm.style.display = "block";
       }
     });
   </script>
