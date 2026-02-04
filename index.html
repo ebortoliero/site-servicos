@@ -352,6 +352,17 @@
     }
     @media (max-width: 900px){ .split{grid-template-columns:1fr;} }
 
+    .about-stack{
+      display:grid;
+      gap:10px;
+    }
+    .about-contacts{
+      display:grid;
+      gap:8px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
     .callout{
       background: linear-gradient(135deg, rgba(110,231,255,.14), rgba(167,139,250,.12));
       border:1px solid rgba(231,238,248,.16);
@@ -723,6 +734,29 @@
       </div>
     </section>
 
+    <section id="identificacao" aria-label="Quem está por trás do serviço">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Quem está por trás do serviço</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="about-stack">
+            <div>
+              <h3>Evandro Bortoliero</h3>
+              <div class="small">Analista de Sistemas</div>
+            </div>
+            <p>
+              Sou Analista de Sistemas com foco em resolver problemas operacionais reais por meio do desenvolvimento de sistemas internos objetivos.
+              A entrega funcional ocorre em até 7 dias, com o que será entregue definido no início.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section aria-label="Chamada final">
       <div class="container">
         <div class="callout">
@@ -750,11 +784,6 @@
               <strong>Sistemas internos objetivos</strong>
             </div>
             <div class="small">Soluções internas objetivas para operações reais.</div>
-          </div>
-          <div>
-            <div><strong>Contato</strong></div>
-            <div class="small">E-mail: <span id="contactEmail">seuemail@exemplo.com</span></div>
-            <div class="small">WhatsApp: <span id="contactPhone">(00) 00000-0000</span></div>
           </div>
         </div>
         <div class="small" style="margin-top:14px; opacity:.85;">
