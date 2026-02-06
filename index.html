@@ -330,6 +330,19 @@
 
       <div class="body">
         <form id="leadForm">
+          <input type="hidden" name="page_url" value="">
+          <input type="hidden" name="page_title" value="">
+          <input type="hidden" name="submitted_at" value="">
+          <div style="display:none">
+            <label>Não preencha este campo</label>
+            <input type="text" name="company">
+          </div>
+
+          <div class="row">
+            <label for="name">Nome <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Seu nome" />
+          </div>
+
           <div class="row">
             <label for="problem">Descreva em poucas linhas o problema que você enfrenta hoje <span class="required">*</span></label>
             <textarea id="problem" name="problem" required placeholder="Ex.: pedidos chegam por WhatsApp e eu perco o controle de prazos e responsáveis."></textarea>
@@ -339,7 +352,7 @@
             <label for="whatsapp">WhatsApp para contato <span class="required">*</span></label>
             <input id="whatsapp" name="whatsapp" type="text" required placeholder="(DDD) 9xxxx-xxxx" />
             <div class="hint">
-              Vou analisar a descrição e, se o caso se encaixar neste modelo de solução com entrega em até 7 dias, entro em contato pelo WhatsApp.
+              Vou analisar a descrição e entro em contato pelo WhatsApp.
             </div>
           </div>
 
@@ -355,13 +368,6 @@
             Vou analisar a descrição do problema com calma.<br><br>
             Se eu entender que consigo entregar dentro do modelo de solução em até 7 dias, entro em contato pelo WhatsApp informado.<br><br>
             Caso não se encaixe, aviso também.
-            <div class="hint" style="margin-top:10px">
-              (Um resumo foi copiado para a área de transferência para facilitar seu primeiro contato.)
-            </div>
-          </div>
-
-          <div class="hint" style="margin-top:10px;">
-            <strong>Nota:</strong> este site não envia automaticamente para um servidor. O envio copia um resumo para você registrar e iniciar o contato.
           </div>
         </form>
       </div>

@@ -17,7 +17,7 @@ function openModal(){
   $("#formStatus").className = "status";
   $("#confirmBox").style.display = "none";
   $("#leadForm").style.display = "grid";
-  setTimeout(() => { $("#problem").focus(); }, 50);
+  setTimeout(() => { $("#name").focus(); }, 50);
 }
 function closeModal(){
   backdrop.style.display = "none";
@@ -42,90 +42,53 @@ $$('a[href^="#"]').forEach(a => {
   });
 });
 
-// Helpers
-function normalizeWhitespace(s){
-  return (s || "").replace(/\s+/g, " ").trim();
-}
-function shortSummary(text, maxLen=180){
-  const t = normalizeWhitespace(text);
-  if(t.length <= maxLen) return t;
-  return t.slice(0, maxLen-1).trim() + "…";
-}
-function nowStamp(){
-  const d = new Date();
-  const pad = n => String(n).padStart(2,"0");
-  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
-// Lead form (no server): copy to clipboard
+// Lead form: Formspree integration
 const form = $("#leadForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const name = $("#name").value.trim();
   const problem = $("#problem").value.trim();
   const whatsapp = $("#whatsapp").value.trim();
-
-  // WhatsApp-directed opening message (for YOU to paste when contacting)
-  const resumo = shortSummary(problem, 220);
-
-  const msg =
-`LEAD — SITE (CAPTURA MÍNIMA)
-Data/hora: ${nowStamp()}
-WhatsApp informado: ${whatsapp}
-
-Problema descrito:
-${problem}
-
-MENSAGEM INICIAL (WhatsApp dirigido):
-Olá! Tudo bem?
-
-Vi que você descreveu este problema no site:
-"${resumo}"
-
-Antes de avançar, preciso confirmar alguns pontos rápidos para verificar se consigo entregar uma solução dentro do modelo de entrega em até 7 dias.
-Essa conversa é apenas para validar o encaixe, tudo bem?
-`;
-
   const status = $("#formStatus");
   const confirm = $("#confirmBox");
 
-  try{
-    await navigator.clipboard.writeText(msg);
-
+  // Validação: campos obrigatórios
+  if (!name || !problem || !whatsapp) {
     status.style.display = "block";
-    status.classList.add("ok");
-    status.textContent = "Enviado! (Resumo copiado para a área de transferência.)";
+    status.className = "status bad";
+    status.textContent = "Preencha todos os campos obrigatórios (Nome, Descrição do problema e WhatsApp).";
+    return;
+  }
 
-    // Show confirmation message
-    confirm.style.display = "block";
+  // Preencher campos ocultos antes do envio
+  form.querySelector('input[name="page_url"]').value = window.location.href;
+  form.querySelector('input[name="page_title"]').value = document.title;
+  form.querySelector('input[name="submitted_at"]').value = new Date().toISOString();
 
-    // Optional: clear fields
-    form.reset();
+  try {
+    const response = await fetch("https://formspree.io/f/maqdwakn", {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    });
 
-    // Auto-close after a bit
-    setTimeout(closeModal, 2200);
-  }catch(err){
+    if (response.ok) {
+      status.style.display = "block";
+      status.className = "status ok";
+      status.textContent = "Enviado com sucesso!";
+      confirm.style.display = "block";
+      form.reset();
+      setTimeout(closeModal, 2200);
+    } else {
+      const data = await response.json().catch(() => ({}));
+      status.style.display = "block";
+      status.className = "status bad";
+      status.textContent = data.error || "Ocorreu um erro ao enviar. Tente novamente.";
+    }
+  } catch (err) {
     status.style.display = "block";
-    status.classList.add("bad");
-    status.textContent = "Não consegui copiar automaticamente. Selecione e copie manualmente o texto abaixo:";
-
-    // Fallback textarea
-    let ta = $("#fallbackMsg");
-    if(ta) ta.remove();
-
-    ta = document.createElement("textarea");
-    ta.id = "fallbackMsg";
-    ta.className = "mono";
-    ta.value = msg;
-    ta.readOnly = true;
-    ta.style.width = "100%";
-    ta.style.minHeight = "180px";
-    ta.style.marginTop = "10px";
-
-    form.appendChild(ta);
-    ta.focus();
-    ta.select();
-
-    confirm.style.display = "block";
+    status.className = "status bad";
+    status.textContent = "Erro de conexão. Verifique sua internet e tente novamente.";
   }
 });
