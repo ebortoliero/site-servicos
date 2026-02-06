@@ -42,6 +42,18 @@ $$('a[href^="#"]').forEach(a => {
   });
 });
 
+// Máscara do WhatsApp: (XX) 9XXXX-XXXX
+const whatsappInput = $("#whatsapp");
+whatsappInput.addEventListener("input", (e) => {
+  let v = e.target.value.replace(/\D/g, "");
+  if (v.length > 0) {
+    if (v.length <= 2) v = "(" + v;
+    else if (v.length <= 7) v = "(" + v.slice(0, 2) + ") " + v.slice(2);
+    else v = "(" + v.slice(0, 2) + ") " + v.slice(2, 7) + "-" + v.slice(7, 11);
+  }
+  e.target.value = v;
+});
+
 // Lead form: Formspree integration
 const form = $("#leadForm");
 form.addEventListener("submit", async (e) => {
@@ -58,6 +70,15 @@ form.addEventListener("submit", async (e) => {
     status.style.display = "block";
     status.className = "status bad";
     status.textContent = "Preencha todos os campos obrigatórios (Nome, Descrição do problema e WhatsApp).";
+    return;
+  }
+
+  // Validação: formato do WhatsApp (XX) 9XXXX-XXXX
+  const whatsappRegex = /^\(\d{2}\) 9\d{4}-\d{4}$/;
+  if (!whatsappRegex.test(whatsapp)) {
+    status.style.display = "block";
+    status.className = "status bad";
+    status.textContent = "WhatsApp inválido. Use o formato: (16) 99149-4910";
     return;
   }
 
